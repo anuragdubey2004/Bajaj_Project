@@ -73,18 +73,18 @@ app.post('/bfhl', (req, res) => {
             });
         }
 
-        // Initialize arrays and variables
+        
         const oddNumbers = [];
         const evenNumbers = [];
         const alphabets = [];
         const specialCharacters = [];
         let sum = 0;
 
-        // Process each item in the data array
+        
         data.forEach(item => {
             const itemStr = String(item);
             
-            // Check if the entire item is a number
+            
             if (isNumeric(itemStr) || (itemStr.length > 1 && /^-?\d+$/.test(itemStr))) {
                 const num = parseInt(itemStr);
                 sum += num;
@@ -95,11 +95,11 @@ app.post('/bfhl', (req, res) => {
                     oddNumbers.push(itemStr);
                 }
             }
-            // Check if the entire item is alphabetic
+            
             else if (/^[A-Za-z]+$/.test(itemStr)) {
                 alphabets.push(itemStr.toUpperCase());
             }
-            // Check for single character items
+            
             else if (itemStr.length === 1) {
                 if (isAlpha(itemStr)) {
                     alphabets.push(itemStr.toUpperCase());
@@ -116,7 +116,7 @@ app.post('/bfhl', (req, res) => {
                     specialCharacters.push(itemStr);
                 }
             }
-            // Mixed content - check each character
+            
             else {
                 let hasNumber = false;
                 let hasAlpha = false;
@@ -140,9 +140,9 @@ app.post('/bfhl', (req, res) => {
                     }
                 }
                 
-                // If the item contains only alphabets, add it as a whole
+                
                 if (hasAlpha && !hasNumber && !/[^A-Za-z]/.test(itemStr)) {
-                    // Remove individual characters and add the whole string
+                    
                     const charsToRemove = itemStr.split('');
                     charsToRemove.forEach(char => {
                         const index = alphabets.indexOf(char.toUpperCase());
@@ -155,13 +155,13 @@ app.post('/bfhl', (req, res) => {
             }
         });
 
-        // Generate concatenated string with alternating caps
+        
         const concatString = processAlphabetsConcat(alphabets);
 
-        // Generate user_id
+        
         const user_id = `${USER_DETAILS.full_name}_${USER_DETAILS.birth_date}`;
 
-        // Prepare response
+        
         const response = {
             is_success: true,
             user_id: user_id,
@@ -186,14 +186,14 @@ app.post('/bfhl', (req, res) => {
     }
 });
 
-// GET /bfhl endpoint (optional - for testing)
+
 app.get('/bfhl', (req, res) => {
     res.status(200).json({
         operation_code: 1
     });
 });
 
-// Health check endpoint
+
 app.get('/', (req, res) => {
     res.json({
         message: "BFHL API is running",
@@ -204,7 +204,7 @@ app.get('/', (req, res) => {
     });
 });
 
-// Error handling middleware
+
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).json({
@@ -213,7 +213,7 @@ app.use((err, req, res, next) => {
     });
 });
 
-// Handle 404
+
 app.use('*', (req, res) => {
     res.status(404).json({
         is_success: false,

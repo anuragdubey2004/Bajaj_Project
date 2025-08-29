@@ -14,7 +14,7 @@
     "nodejs",
     "bfhl"
   ],
-  "author": "Your Name",
+  "author": "Anurag Dubey",
   "license": "MIT",
   "dependencies": {
     "express": "^4.18.2",
